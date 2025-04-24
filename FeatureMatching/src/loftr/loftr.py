@@ -8,6 +8,19 @@ from .loftr_module import LocalFeatureTransformer, FinePreprocess
 from .utils.coarse_matching import CoarseMatching
 from .utils.fine_matching import FineMatching
 
+def reparameter(matcher):
+    module = matcher.backbone.layer0
+    if hasattr(module, 'switch_to_deploy'):
+        module.switch_to_deploy()
+    for modules in [matcher.backbone.layer1, matcher.backbone.layer2, matcher.backbone.layer3]:
+        for module in modules:
+            if hasattr(module, 'switch_to_deploy'):
+                module.switch_to_deploy()
+    for modules in [matcher.fine_preprocess.layer2_outconv2, matcher.fine_preprocess.layer1_outconv2]:
+        for module in modules:
+            if hasattr(module, 'switch_to_deploy'):
+                module.switch_to_deploy()
+    return matcher
 
 class LoFTR(nn.Module):
     def __init__(self, config):

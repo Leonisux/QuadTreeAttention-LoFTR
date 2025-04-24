@@ -24,6 +24,20 @@ from src.utils.misc import lower_config, flattenList
 from src.utils.profiler import PassThroughProfiler
 
 
+def reparameter(matcher):
+    module = matcher.backbone.layer0
+    if hasattr(module, 'switch_to_deploy'):
+        module.switch_to_deploy()
+    for modules in [matcher.backbone.layer1, matcher.backbone.layer2, matcher.backbone.layer3]:
+        for module in modules:
+            if hasattr(module, 'switch_to_deploy'):
+                module.switch_to_deploy()
+    for modules in [matcher.fine_preprocess.layer2_outconv2, matcher.fine_preprocess.layer1_outconv2]:
+        for module in modules:
+            if hasattr(module, 'switch_to_deploy'):
+                module.switch_to_deploy()
+    return matcher
+
 class PL_LoFTR(pl.LightningModule):
     def __init__(self, config, pretrained_ckpt=None, profiler=None, dump_dir=None):
         """
@@ -50,6 +64,7 @@ class PL_LoFTR(pl.LightningModule):
         
         # Testing
         self.dump_dir = dump_dir
+        self.reparameter = False
         
     def configure_optimizers(self):
         # FIXME: The scheduler did not work properly when `--resume_from_checkpoint`
@@ -205,6 +220,10 @@ class PL_LoFTR(pl.LightningModule):
     def test_step(self, batch, batch_idx):
         with self.profiler.profile("LoFTR"):
             self.matcher(batch)
+
+        if (self.config.LOFTR.BACKBONE_TYPE == 'RepVGG') and not self.reparameter:
+            self.matcher = reparameter(self.matcher)
+            self.reparameter = True
 
         ret_dict, rel_pair_names = self._compute_metrics(batch)
 

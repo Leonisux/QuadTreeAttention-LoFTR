@@ -4,15 +4,14 @@ _CN = CN()
 ##############  ↓  LoFTR Pipeline  ↓  ##############
 _CN.LOFTR = CN()
 _CN.LOFTR.BACKBONE_TYPE = 'RepVGG'
-_CN.LOFTR.ALIGN_CORNER = False
-_CN.LOFTR.RESOLUTION = (8, 2)  # options: [(8, 2), (16, 4)]
+_CN.LOFTR.RESOLUTION = (8, 1)  # options: [(8, 2), (16, 4)]
 _CN.LOFTR.FINE_WINDOW_SIZE = 5  # window_size in fine_level, must be odd
 _CN.LOFTR.FINE_CONCAT_COARSE_FEAT = True
 
 # 1. LoFTR-backbone (local feature CNN) config
 _CN.LOFTR.RESNETFPN = CN()
 _CN.LOFTR.RESNETFPN.INITIAL_DIM = 128
-_CN.LOFTR.RESNETFPN.BLOCK_DIMS = [128, 196, 256]  # s1, s2, s3
+_CN.LOFTR.RESNETFPN.BLOCK_DIMS = [64, 128, 256]  # s1, s2, s3
 
 # 2. LoFTR-coarse module config
 _CN.LOFTR.COARSE = CN()

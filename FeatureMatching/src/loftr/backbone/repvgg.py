@@ -157,11 +157,11 @@ class RepVGG(nn.Module):
         self.use_se = use_se
         self.use_checkpoint = use_checkpoint
 
-        self.in_planes = min(64, int(64 * width_multiplier[0]))
+        self.in_planes = min(128, int(128 * width_multiplier[0]))
         self.stage0 = RepVGGBlock(in_channels=1, out_channels=self.in_planes, kernel_size=3, stride=2, padding=1, deploy=self.deploy, use_se=self.use_se)
         self.cur_layer_idx = 1
-        self.stage1 = self._make_stage(int(64 * width_multiplier[0]), num_blocks[0], stride=1)
-        self.stage2 = self._make_stage(int(128 * width_multiplier[1]), num_blocks[1], stride=2)
+        self.stage1 = self._make_stage(int(128 * width_multiplier[0]), num_blocks[0], stride=1)
+        self.stage2 = self._make_stage(int(196 * width_multiplier[1]), num_blocks[1], stride=2)
         self.stage3 = self._make_stage(int(256 * width_multiplier[2]), num_blocks[2], stride=2)
 
     def _make_stage(self, planes, num_blocks, stride):

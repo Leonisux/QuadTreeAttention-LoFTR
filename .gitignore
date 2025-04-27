@@ -1,0 +1,14 @@
+QuadTreeAttention/.gitignore
+QuadTreeAttention/local
+QuadTreeAttention/build/lib.linux-x86_64-3.8/score_computation_cuda.cpython-38-x86_64-linux-gnu.so
+QuadTreeAttention/build/lib.linux-x86_64-3.8/value_aggregation_cuda.cpython-38-x86_64-linux-gnu.so
+QuadTreeAttention/build/temp.linux-x86_64-3.8/.ninja_deps
+QuadTreeAttention/build/temp.linux-x86_64-3.8/.ninja_log
+QuadTreeAttention/build/temp.linux-x86_64-3.8/build.ninja
+QuadTreeAttention/build/temp.linux-x86_64-3.8/QuadtreeAttention/src/score_computation_kernal.o
+QuadTreeAttention/build/temp.linux-x86_64-3.8/QuadtreeAttention/src/score_computation.o
+QuadTreeAttention/build/temp.linux-x86_64-3.8/QuadtreeAttention/src/value_aggregation_kernel.o
+QuadTreeAttention/build/temp.linux-x86_64-3.8/QuadtreeAttention/src/value_aggregation.o
+QuadTreeAttention/dist/quadtree_attention_package-0.0.0-py3.8-linux-x86_64.egg
+QuadTreeAttention/QuadtreeAttention/functions/__pycache__/quadtree_attention.cpython-38.pyc
+QuadTreeAttention/QuadtreeAttention/modules/__pycache__/quadtree_attention.cpython-38.pyc
